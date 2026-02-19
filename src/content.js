@@ -20,17 +20,43 @@ const Content = () => {
     },
   ]);
 
+  const handleCheck = (id) => {
+    const listItems = items.map(
+      (item) => (item.id === id ? { ...item, checked: !item.checked } : item), // Checks if item is true than makes false otherwise if false make it true
+    );
+    setItems(listItems);
+  };
+
+  const handleDelete = (id) => {
+    const listItems = items.filter((item) => item.id !== id);
+    setItems(listItems);
+  };
+
   return (
     <main>
-      <ul>
-        {items.map((item) => (
-          <li className="item" key={item.id}>
-            <input type="checkbox" checked={item.checked} />
-            <label>{item.item}</label>
-            <FaTrashAlt role="button" tabIndex="0" />
-          </li>
-        ))}
-      </ul>
+      {items.length ? (
+        <ul>
+          {items.map((item) => (
+            <li className="item" key={item.id}>
+              <input
+                type="checkbox"
+                checked={item.checked}
+                onChange={() => handleCheck(item.id)}
+              />
+              <label onDoubleClick={() => handleCheck(item.id)}>
+                {item.item}
+              </label>
+              <FaTrashAlt
+                role="button"
+                tabIndex="0"
+                onClick={() => handleDelete(item.id)}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <h2>Your list is empty</h2>
+      )}
     </main>
   );
 };
