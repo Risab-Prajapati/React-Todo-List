@@ -1,37 +1,6 @@
-import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
-const Content = () => {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      checked: false,
-      item: "Item1",
-    },
-    {
-      id: 2,
-      checked: false,
-      item: "Item2",
-    },
-    {
-      id: 3,
-      checked: false,
-      item: "Item3",
-    },
-  ]);
-
-  const handleCheck = (id) => {
-    const listItems = items.map(
-      (item) => (item.id === id ? { ...item, checked: !item.checked } : item), // Checks if item is true than makes false otherwise if false make it true
-    );
-    setItems(listItems);
-  };
-
-  const handleDelete = (id) => {
-    const listItems = items.filter((item) => item.id !== id);
-    setItems(listItems);
-  };
-
+const Content = ({ items, handleCheck, handleDelete }) => {
   return (
     <main>
       {items.length ? (
@@ -43,7 +12,10 @@ const Content = () => {
                 checked={item.checked}
                 onChange={() => handleCheck(item.id)}
               />
-              <label onDoubleClick={() => handleCheck(item.id)}>
+              <label
+                style={item.checked ? { textDecoration: "line-through" } : null}
+                onDoubleClick={() => handleCheck(item.id)}
+              >
                 {item.item}
               </label>
               <FaTrashAlt

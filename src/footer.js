@@ -1,7 +1,7 @@
 const footer = () => {
   const today = new Date();
   return (
-    <footer>Copyrigh &copy; under section 201 {today.getFullYear()}</footer>
+    <footer>Copyright &copy; under section 201 {today.getFullYear()}</footer>
   );
 };
 
